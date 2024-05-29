@@ -60,12 +60,12 @@ int main(int argc, char *argv[])
 
 	while((c = getopt(argc, argv, "ha:")) != -1)
 		switch(c) {
-			case 'h':
-				al_usage();
 			case 'a':
 				aflag = 1;
 				a_opt = strdup(optarg);
 				break;
+			case 'h':
+				al_usage();
 			default:
 				al_usage();
 		}
