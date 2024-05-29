@@ -50,8 +50,6 @@ void print_al(struct al_T *al)
 
 int main(int argc, char *argv[])
 {
-	int aflag = 0;
-
 	if(argv[1] && isalpha(argv[1][0]) && argv[1][1] == '\0') {
 
 		for(int i = 0; i < 26; i++)
