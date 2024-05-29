@@ -55,13 +55,11 @@ void print_al(struct al_T *al)
 int main(int argc, char *argv[])
 {
 	int c;
-	int aflag = 0;
-	char *a_opt = NULL;
+	char *a_opt;
 
 	while((c = getopt(argc, argv, "ha:")) != -1)
 		switch(c) {
 			case 'a':
-				aflag = 1;
 				a_opt = strdup(optarg);
 				break;
 			case 'h':
@@ -70,7 +68,7 @@ int main(int argc, char *argv[])
 				al_usage();
 		}
 	
-	if(aflag && isalpha(a_opt[0]) && a_opt[1] == '\0') {
+	if(a_opt && isalpha(a_opt[0]) && a_opt[1] == '\0') {
 
 		for(int i = 0; i < 26; i++)
 			if(al[i].c == a_opt[0]) {
