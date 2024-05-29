@@ -1,4 +1,4 @@
-/* al - print the alphabet to the terminal */
+/* al - simply prints the alphabet */
 
 #include <ctype.h>
 #include <stdio.h>
