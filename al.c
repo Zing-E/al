@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
+/* This flag means to print numbers alongside the alphabet */
+
 int nflag;
 
 struct al_T {
@@ -13,8 +15,9 @@ struct al_T {
 	int n;
 };
 
-void al_usage(void);
+int al_compar(const void *, const void *);
 void al_specific(char *);
+void al_usage(void);
 void print_al(struct al_T *);
 
 struct al_T al[] = {
@@ -46,15 +49,9 @@ struct al_T al[] = {
 	{'z', 26},
 };
 
-void print_al(struct al_T *al)
+int al_compar(const void *a, const void *b)
 {
-	if(!nflag)
-		if(al->n < 10)
-			printf("0%d. %c\n", al->n, al->c);
-		else
-			printf("%d. %c\n", al->n, al->c);
-	else
-		printf("%c\n", al->c);
+	return strcmp(*(const char **)a, *(const char **) b);
 }
 
 void al_specific(char *arg)
@@ -66,10 +63,21 @@ void al_specific(char *arg)
 				break;
 			}
 	} else {
-		fprintf(stderr, "error: al -s must be followed by a single letter.\n");
+		fprintf(stderr, "error: al -s must be followed by a single letter(s).\n");
 		exit(EXIT_FAILURE);
 	}
 
+}
+
+void print_al(struct al_T *al)
+{
+	if(!nflag)
+		if(al->n < 10)
+			printf("0%d. %c\n", al->n, al->c);
+		else
+			printf("%d. %c\n", al->n, al->c);
+	else
+		printf("%c\n", al->c);
 }
 
 int main(int argc, char *argv[])
@@ -86,13 +94,21 @@ int main(int argc, char *argv[])
 				break;
 			case 's':
 				sflag = 1;
-				al_specific(optarg);
 				break;
 			default:
 				al_usage();
 		}
 
-	if(!sflag)	
+	if(sflag) {
+		qsort(&argv[2], argc - 2, sizeof(char*), al_compar);
+		
+		argv += 2;
+
+		while(*argv) {
+			al_specific(*argv);
+			argv++;
+		}
+	} else
 		for(int i = 0; i < 26; i++)
 			print_al(&al[i]);
 
@@ -102,11 +118,11 @@ int main(int argc, char *argv[])
 void al_usage(void)
 {
 	printf("usage: \n"
-		" al [option] [letter]\n\n"
-		" al	- Prints the alphabet.\n"
+		" al [option] [letter(s)]\n\n"
+		" al     - Prints the alphabet.\n"
 		" al -h  - Prints this menu.\n"
 		" al -n  - Prints the alphabet with no numbers.\n"
-		" al -s  - Prints specific letter.\n");
+		" al -s  - Prints specific letter(s).\n");
 	
 	exit(EXIT_FAILURE);
 }
