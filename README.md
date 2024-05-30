@@ -7,13 +7,18 @@ This program prints the alphabet to the terminal.
   al
   ```
 
-- To get the specfic number of a letter run:
-
-   ```
-   al -a [letter]
-   ```
-
 - To get the help menu run:
   ```
   al -h
   ```
+
+- To print the alphabet with no numbers run:
+  ```
+  al -n
+  ```
+
+- To get the specfic number of a letter run:
+
+   ```
+   al -s [letter]
+   ```

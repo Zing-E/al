@@ -12,7 +12,7 @@ struct al_T {
 };
 
 void al_usage(void);
-void print_al(struct al_T *);
+void print_al(struct al_T *, int);
 
 struct al_T al[] = {
 	{'a', 1},
@@ -43,45 +43,59 @@ struct al_T al[] = {
 	{'z', 26},
 };
 
-void print_al(struct al_T *al)
+void print_al(struct al_T *al, int nflag)
 {
-	if(al->n < 10)
-		printf("0%d. %c\n", al->n, al->c);
+	if(!nflag)
+		if(al->n < 10)
+			printf("0%d. %c\n", al->n, al->c);
+		else
+			printf("%d. %c\n", al->n, al->c);
 	else
-		printf("%d. %c\n", al->n, al->c);
+		printf("%c\n", al->c);
 }
 
 
 int main(int argc, char *argv[])
 {
-	int c;
-	char *a_opt;
+	int sflag, nflag, c;
+	char *s_opt;
 
-	while((c = getopt(argc, argv, "ha:")) != -1)
+	sflag = nflag = 0;
+
+	while((c = getopt(argc, argv, "hns:")) != -1)
 		switch(c) {
-			case 'a':
-				a_opt = strdup(optarg);
-				break;
 			case 'h':
 				al_usage();
+			case 'n':
+				nflag = 1;
+				break;
+			case 's':
+				sflag = 1;
+				s_opt = strdup(optarg);
+				break;
 			default:
 				al_usage();
 		}
 	
-	if(a_opt && isalpha(a_opt[0]) && a_opt[1] == '\0') {
+	if(sflag) {
+		if(isalpha(s_opt[0]) && s_opt[1] == '\0') {
+			for(int i = 0; i < 26; i++)
+				if(al[i].c == s_opt[0]) {
+					print_al(&al[i], nflag);
+					break;
+				}
+			free(s_opt);
 
-		for(int i = 0; i < 26; i++)
-			if(al[i].c == a_opt[0]) {
-				print_al(&al[i]);
-				break;
-			}
-		free(a_opt);
-
-		return 0;
+			return 0;
+		
+		} else {
+			fprintf(stderr, "error: al -s must be followed by a single letter.\n");
+			return -1;
+		}
 	}
 
 	for(int i = 0; i < 26; i++)
-		print_al(&al[i]);
+		print_al(&al[i], nflag);
 
 	return 0;
 }
@@ -90,8 +104,9 @@ void al_usage(void)
 {
 	printf("usage: \n"
 		" al [option] [letter]\n\n"
-		" al	- Prints the alphabelt.\n"
-		" al -a  - Prints specific letter.\n");
+		" al	- Prints the alphabet.\n"
+		" al -n  - Prints the alphabet with no numbers.\n"
+		" al -s  - Prints specific letter.\n");
 	
 	exit(EXIT_FAILURE);
 }
