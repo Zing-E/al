@@ -105,6 +105,7 @@ void al_usage(void)
 	printf("usage: \n"
 		" al [option] [letter]\n\n"
 		" al	- Prints the alphabet.\n"
+		" al -h  - Prints this menu.\n"
 		" al -n  - Prints the alphabet with no numbers.\n"
 		" al -s  - Prints specific letter.\n");
 	
