@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-/* This flag means to print numbers alongside the alphabet */
+/* This flag means to not print numbers alongside the alphabet */
 
 int nflag;
 
