@@ -21,3 +21,8 @@ This program prints the alphabet to the terminal.
    ```
    al -s [letter(s)]
    ```
+
+- To print version number run:
+  ```
+  al -v
+  ```

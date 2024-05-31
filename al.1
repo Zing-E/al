@@ -1,0 +1,43 @@
+.\"  al manpage
+.TH "AL" "1" "2024" "al 0.1" "User Commands"
+.SH "NAME"
+al \- simply prints the alphabet
+.SH "SYNOPSIS"
+.B al
+.RB [ \-hns ]
+.br
+.SH "DESCRIPTION"
+.B al
+prints the alphabet to the terminal.
+.LP
+It also supports printing specific letters in alphabetical order.
+.SH "COMMAND-LINE OPTIONS"
+al can be used with no options to just print the alphabet.
+.TP
+\fB\-h\f 
+Prints the help menu.
+.TP
+\fB\-n\f
+Prints the alphabet with no numbers.
+.TP
+\fB\-s\f
+Prints specific letter(s).
+.TP
+\fB\-v\f
+Prints the al version number.
+.SH "EXAMPLES"
+$ al -s e z a
+.LP
+01. a
+.br
+05. e
+.br
+26. z
+.LP
+$ al -ns t v a
+.LP
+a
+.br
+t
+.br
+v

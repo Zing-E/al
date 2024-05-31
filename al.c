@@ -6,6 +6,8 @@
 #include <string.h>
 #include <unistd.h>
 
+const char *version = "0.1";
+
 /* This flag means to not print numbers alongside the alphabet */
 
 int nflag;
@@ -85,7 +87,7 @@ int main(int argc, char *argv[])
 	int c, sflag;
 	nflag = sflag = 0;
 
-	while((c = getopt(argc, argv, "hns:")) != -1)
+	while((c = getopt(argc, argv, "hns:v")) != -1)
 		switch(c) {
 			case 'h':
 				al_usage();
@@ -95,6 +97,9 @@ int main(int argc, char *argv[])
 			case 's':
 				sflag = 1;
 				break;
+			case 'v':
+				printf("al: version: %s\n", version);
+				return 0;
 			default:
 				al_usage();
 		}
