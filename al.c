@@ -105,14 +105,15 @@ int main(int argc, char *argv[])
 		}
 
 	if(sflag) {
-		qsort(&argv[2], argc - 2, sizeof(char*), al_compar);
+		qsort(&argv[optind-1], argc - (optind-1), sizeof(char*), al_compar);
 		
-		argv += 2;
+		argv += optind-1;
 
 		while(*argv) {
 			al_specific(*argv);
 			argv++;
 		}
+
 	} else
 		for(int i = 0; i < 26; i++)
 			print_al(&al[i]);
