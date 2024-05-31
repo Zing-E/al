@@ -127,7 +127,8 @@ void al_usage(void)
 		" al     - Prints the alphabet.\n"
 		" al -h  - Prints this menu.\n"
 		" al -n  - Prints the alphabet with no numbers.\n"
-		" al -s  - Prints specific letter(s).\n");
+		" al -s  - Prints specific letter(s).\n"
+		" al -v  - Prints the al version number.\n");
 	
 	exit(EXIT_FAILURE);
 }
