@@ -1,11 +1,9 @@
 #!/bin/sh
 
-CC=cc
-CFLAGS="-Wall -Wextra -O2"
 BIN="al"
 
 build() {
-	$CC $CFLAGS al.c -o $BIN
+	go build al.go
 }
 
 clean() {
@@ -13,7 +11,7 @@ clean() {
 }
 
 usage() {
-	echo "Usage: $0 [build clean]" 
+	echo "Usage: $0 [build]"
 }
 
 case "$1" in
