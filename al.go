@@ -15,7 +15,7 @@ type Al struct {
 	num int
 }
 
-const version float32 = 0.2
+const version = 0.2
 
 var nflag bool
 
