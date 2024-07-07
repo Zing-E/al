@@ -10,11 +10,6 @@ import (
 	"unicode"
 )
 
-type Al struct {
-	letter rune
-	num int
-}
-
 const version = 0.2
 
 var nflag bool
