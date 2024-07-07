@@ -95,9 +95,8 @@ func main() {
 		sort.Strings(items)
 
 		for _, letter := range items {
-			letterRune := rune(letter[0])
-			if len(letter) == 1 && unicode.IsLetter(letterRune) {
-				printAl(letterRune, alphabet[letterRune])
+			if len(letter) == 1 && unicode.IsLetter(letter[0]) {
+				printAl(letter[0], alphabet[letter[0]])
 			} else {
 				specificError()
 			}
