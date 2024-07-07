@@ -19,50 +19,53 @@ const version = 0.2
 
 var nflag bool
 
-var alphabet = []Al{
-	{'a', 1},
-	{'b', 2},
-	{'c', 3},
-	{'d', 4},
-	{'e', 5},
-	{'f', 6},
-	{'g', 7},
-	{'h', 8},
-	{'i', 9},
-	{'j', 10},
-	{'k', 11},
-	{'l', 12},
-	{'m', 13},
-	{'n', 14},
-	{'o', 15},
-	{'p', 16},
-	{'q', 17},
-	{'r', 18},
-	{'s', 19},
-	{'t', 20},
-	{'u', 21},
-	{'v', 22},
-	{'w', 23},
-	{'x', 24},
-	{'y', 25},
-	{'z', 26},
+var alphabet = map[rune]int{
+	'a': 1,
+	'b': 2,
+	'c': 3,
+	'd': 4,
+	'e': 5,
+	'f': 6,
+	'g': 7,
+	'h': 8,
+	'i': 9,
+	'j': 10,
+	'k': 11,
+	'l': 12,
+	'm': 13,
+	'n': 14,
+	'o': 15,
+	'p': 16,
+	'q': 17,
+	'r': 18,
+	's': 19,
+	't': 20,
+	'u': 21,
+	'v': 22,
+	'w': 23,
+	'x': 24,
+	'y': 25,
+	'z': 26,
 }
 
-func printAl(a Al) {
-
-	if !nflag {
-		if a.num < 10 {
-			fmt.Printf("0%d. %c\n", a.num, a.letter)
-		} else {
-			fmt.Printf("%d. %c\n", a.num, a.letter)
-		}
+func printAl(letter rune, num int) {
+	if nflag {
+		fmt.Printf("%c\n", letter)
 	} else {
-			fmt.Printf("%c\n", a.letter)
+		if num < 10 {
+			fmt.Printf("0%d. %c\n", num, letter)
+		} else {
+			fmt.Printf("%d. %c\n", num, letter)
+		}
 	}
 }
 
-func main() {
+func specificError() {
+		fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
+		os.Exit(1)
+}
 
+func main() {
 	hflag := flag.Bool("h", false, "Prints this menu.")
 	sflag := flag.Bool("s", false, "Prints specific letter(s).")
 	vflag := flag.Bool("v", false, "Prints the al version number.")
@@ -86,33 +89,27 @@ func main() {
 		fmt.Printf("al: version: %v\n", version)
 		return
 	}
-
+	
 	if *sflag {
 		items := flag.Args()
 
 		if len(items) == 0 {
-			fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
-			return
+			specificError()
 		}
 
 		sort.Strings(items)
 
-		for _, str := range items {
-			if unicode.IsLetter(rune(str[0])) && len(str) == 1 {
-				for _, al := range alphabet {
-					if rune(str[0]) == al.letter {
-						printAl(al)
-						break
-					}
-				}
+		for _, letter := range items {
+			letterRune := rune(letter[0])
+			if len(letter) == 1 && unicode.IsLetter(letterRune) {
+				printAl(letterRune, alphabet[letterRune])
 			} else {
-				fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
-				return
+				specificError()
 			}
 		}
 	} else {
-		for _, al := range alphabet {
-			printAl(al)
+		for curLet := 'a'; curLet <= 'z'; curLet++ {
+			printAl(curLet, alphabet[curLet])
 		}
 	}
 }
