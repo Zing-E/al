@@ -56,7 +56,7 @@ func printAl(letter rune, num int) {
 }
 
 func specificError() {
-	fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
+	fmt.Fprintf(os.Stderr, "error: al -s must be followed by single lowercase letter(s).\n")
 	os.Exit(1)
 }
 
@@ -95,8 +95,9 @@ func main() {
 		sort.Strings(items)
 
 		for _, letter := range items {
-			if len(letter) == 1 && unicode.IsLetter(letter[0]) {
-				printAl(letter[0], alphabet[letter[0]])
+			letterRune := rune(letter[0])
+			if len(letter) == 1 && unicode.IsLetter(letterRune) && unicode.IsLower(letterRune) {
+				printAl(letterRune, alphabet[letterRune])
 			} else {
 				specificError()
 			}
