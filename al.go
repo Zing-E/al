@@ -56,8 +56,8 @@ func printAl(letter rune, num int) {
 }
 
 func specificError() {
-		fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
-		os.Exit(1)
+	fmt.Fprintf(os.Stderr, "error: al -s must be followed by a single letter(s).\n")
+	os.Exit(1)
 }
 
 func main() {
